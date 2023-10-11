@@ -2642,6 +2642,7 @@ if [[ $cyanrip = y ]]; then
         PKG_CONFIG_PATH=$LOCALDESTDIR/opt/cyanffmpeg/lib/pkgconfig:$PKG_CONFIG_PATH
 
         cd_safe "$LOCALBUILDDIR"/cyanrip-git
+        sed -i 's/repeat_ripping:/repeat_ripping:;/' src/cyanrip_main.c
         _check=(bin-audio/cyanrip.exe)
         _extra_cflags=("$(cygpath -m "$LOCALDESTDIR/opt/cyanffmpeg/include")"
             "$(cygpath -m "$LOCALDESTDIR/include")")
