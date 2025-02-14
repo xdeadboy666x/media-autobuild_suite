@@ -20,3 +20,5 @@ jobs:
       - name: Run media-autobuild_suite.bat
         run: |
           .\media-autobuild_suite.bat
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_REPO }}
