@@ -925,7 +925,7 @@ if %buildffmpegChoice%==1 (
         pause
         )
     )
-set "ffmpegChoice=f"
+set "ffmpegChoice=n"
 if %buildffmpegChoice% GTR 4 GOTO ffmpegChoice
 if %deleteINI%==1 echo.ffmpegChoice=^%buildffmpegChoice%>>%ini%
 
