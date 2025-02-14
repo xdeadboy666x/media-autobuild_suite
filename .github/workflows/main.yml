@@ -19,5 +19,5 @@ jobs:
         
       - name: Run media-autobuild_suite.bat
         run: |
-          # Execute the .bat script to start the build process
+          echo | .
           .\media-autobuild_suite\media-autobuild_suite.bat
