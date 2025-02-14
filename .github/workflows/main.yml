@@ -14,6 +14,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Run media-autobuild_suite.bat
         run: |
           .\media-autobuild_suite.bat
