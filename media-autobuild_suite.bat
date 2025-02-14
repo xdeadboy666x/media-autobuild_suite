@@ -842,10 +842,10 @@ if [0]==[%ffmpegUpdateINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmpegUp="Build ffmpeg if lib is new: "
+    set buildffmpegUp=1
 ) else set buildffmpegUp=%ffmpegUpdateINI%
 
-set "ffmpegUpdate=n"
+set "ffmpegUpdate=onlyFFmpeg"
 if %buildffmpegUp% GTR 3 GOTO ffmpegUp
 if %deleteINI%==1 echo.ffmpegUpdate=^%buildffmpegUp%>>%ini%
 
@@ -869,7 +869,7 @@ if [0]==[%ffmpegChoiceINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmpegChoice="Choose ffmpeg and mpv optional libs: "
+    set buildffmpegChoice=3
 ) else set buildffmpegChoice=%ffmpegChoiceINI%
 
 if "%buildffmpegChoice%"=="" GOTO ffmpegChoice
@@ -910,7 +910,7 @@ if %buildffmpegChoice%==1 (
             echo.# Built-in options, use --disable- to disable them
             call :writeOption %mpv_options_builtin%
             echo.
-            echo.# Common options or overriden defaults
+            echo.# Common options or overridden defaults
             call :writeOption %mpv_options_basic%
             echo.
             echo.# Full
@@ -925,7 +925,7 @@ if %buildffmpegChoice%==1 (
         pause
         )
     )
-set "ffmpegChoice=n"
+set "ffmpegChoice=f"
 if %buildffmpegChoice% GTR 4 GOTO ffmpegChoice
 if %deleteINI%==1 echo.ffmpegChoice=^%buildffmpegChoice%>>%ini%
 
