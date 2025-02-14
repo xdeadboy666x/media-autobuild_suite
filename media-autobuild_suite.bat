@@ -845,7 +845,7 @@ if [0]==[%ffmpegUpdateINI%] (
     set /P buildffmpegUp="Build ffmpeg if lib is new: "
 ) else set buildffmpegUp=%ffmpegUpdateINI%
 
-set "ffmpegUpdate=onlyFFmpeg"
+set "ffmpegUpdate=n"
 if %buildffmpegUp% GTR 3 GOTO ffmpegUp
 if %deleteINI%==1 echo.ffmpegUpdate=^%buildffmpegUp%>>%ini%
 
