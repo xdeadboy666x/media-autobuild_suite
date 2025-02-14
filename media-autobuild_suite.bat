@@ -1587,7 +1587,7 @@ if [0]==[%noMinttyINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set noMinttyF=2
+    set noMinttyF=1
 ) else set noMinttyF=%noMinttyINI%
 
 if "%noMinttyF%"=="" GOTO noMintty
