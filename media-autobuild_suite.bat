@@ -190,10 +190,13 @@ if [0]==[%archINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildEnv="Build System: "
+    set buildEnv=3
 ) else set buildEnv=%archINI%
 
-set "build32=no" && set "build64=yes"
+if "%buildEnv%"=="" GOTO selectSystem
+if %buildEnv%==1 set "build32=yes" && set "build64=yes"
+if %buildEnv%==2 set "build32=yes" && set "build64=no"
+if %buildEnv%==3 set "build32=no" && set "build64=yes"
 if %buildEnv% GTR 3 GOTO selectSystem
 if %deleteINI%==1 echo.arch=^%buildEnv%>>%ini%
 
@@ -223,10 +226,11 @@ if [0]==[%license2INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P ffmpegLicense="FFmpeg license: "
+    set ffmpegLicense=1
 ) else set ffmpegLicense=%license2INI%
 
-set "license2=nonfree"
+if "%ffmpegLicense%"=="" GOTO ffmpeglicense
+if %ffmpegLicense%==1 set "license2=nonfree"
 if %ffmpegLicense%==2 set "license2=gplv3"
 if %ffmpegLicense%==3 set "license2=gpl"
 if %ffmpegLicense%==4 set "license2=lgplv3"
@@ -246,10 +250,12 @@ if [0]==[%standaloneINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildstandalone="Build standalone binaries: "
+    set buildstandalone=2
 ) else set buildstandalone=%standaloneINI%
 
-set "standalone=n"
+if "%buildstandalone%"=="" GOTO standalone
+if %buildstandalone%==1 set "standalone=y"
+if %buildstandalone%==2 set "standalone=n"
 if %buildstandalone% GTR 2 GOTO standalone
 if %deleteINI%==1 echo.standalone=^%buildstandalone%>>%ini%
 
@@ -271,10 +277,13 @@ if [0]==[%av1anINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildav1an="Build av1an: "
+    set buildav1an=2
 ) else set buildav1an=%av1anINI%
 
-set "av1an=n"
+if "%buildav1an%"=="" GOTO av1an
+if %buildav1an%==1 set "av1an=y"
+if %buildav1an%==2 set "av1an=shared"
+if %buildav1an%==3 set "av1an=n"
 if %buildav1an% GTR 3 GOTO av1an
 if %deleteINI%==1 echo.av1an=^%buildav1an%>>%ini%
 
@@ -291,10 +300,12 @@ if [0]==[%vpx2INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildvpx="Build vpx: "
+    set buildvpx=2
 ) else set buildvpx=%vpx2INI%
 
-set "vpx2=n"
+if "%buildvpx%"=="" GOTO vpx
+if %buildvpx%==1 set "vpx2=y"
+if %buildvpx%==2 set "vpx2=n"
 if %buildvpx% GTR 2 GOTO vpx
 if %deleteINI%==1 echo.vpx2=^%buildvpx%>>%ini%
 
@@ -311,10 +322,11 @@ if [0]==[%aomINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildaom="Build aom: "
+    set buildaom=1
 ) else set buildaom=%aomINI%
 
-set "aom=y"
+if "%buildaom%"=="" GOTO aom
+if %buildaom%==1 set "aom=y"
 if %buildaom%==2 set "aom=n"
 if %buildaom% GTR 2 GOTO aom
 if %deleteINI%==1 echo.aom=^%buildaom%>>%ini%
@@ -332,10 +344,11 @@ if [0]==[%rav1eINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildrav1e="Build rav1e: "
+    set buildrav1e=1
 ) else set buildrav1e=%rav1eINI%
 
-set "rav1e=y"
+if "%buildrav1e%"=="" GOTO rav1e
+if %buildrav1e%==1 set "rav1e=y"
 if %buildrav1e%==2 set "rav1e=n"
 if %buildrav1e% GTR 2 GOTO rav1e
 if %deleteINI%==1 echo.rav1e=^%buildrav1e%>>%ini%
@@ -353,16 +366,17 @@ if [0]==[%dav1dINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P builddav1d="Build dav1d: "
+    set builddav1d=1
 ) else set builddav1d=%dav1dINI%
 
-set "dav1d=y"
+if "%builddav1d%"=="" GOTO dav1d
+if %builddav1d%==1 set "dav1d=y"
 if %builddav1d%==2 set "dav1d=n"
 if %builddav1d% GTR 2 GOTO dav1d
 if %deleteINI%==1 echo.dav1d=^%builddav1d%>>%ini%
 
-:avif
-if [0]==[%avifINI%] (
+:libavif
+if [0]==[%libavifINI%] (
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
     echo.
@@ -375,10 +389,11 @@ if [0]==[%avifINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildlibavif="Build libavif: "
+    set buildlibavif=1
 ) else set buildlibavif=%libavifINI%
 
-set "libavif=y"
+if "%buildlibavif%"=="" GOTO libavif
+if %buildlibavif%==1 set "libavif=y"
 if %buildlibavif%==2 set "libavif=n"
 if %buildlibavif% GTR 2 GOTO libavif
 if %deleteINI%==1 echo.libavif=^%buildlibavif%>>%ini%
@@ -394,10 +409,11 @@ if [0]==[%jpegxlINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildjpegxl="Build jpegxl: "
+    set buildjpegxl=1
 ) else set buildjpegxl=%jpegxlINI%
 
-set "jpegxl=y"
+if "%buildjpegxl%"=="" GOTO jpegxl
+if %buildjpegxl%==1 set "jpegxl=y"
 if %buildjpegxl%==2 set "jpegxl=n"
 if %buildjpegxl% GTR 2 GOTO jpegxl
 if %deleteINI%==1 echo.jpegxl=^%buildjpegxl%>>%ini%
@@ -420,10 +436,14 @@ if [0]==[%x2643INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildx264="Build x264: "
+    set buildx264=3
 ) else set buildx264=%x2643INI%
 
-set "x2643=full"
+if "%buildx264%"=="" GOTO x264
+if %buildx264%==1 set "x2643=yes"
+if %buildx264%==2 set "x2643=no"
+if %buildx264%==3 set "x2643=high"
+if %buildx264%==4 set "x2643=full"
 if %buildx264%==5 set "x2643=shared"
 if %buildx264%==6 set "x2643=fullv"
 if %buildx264%==7 set "x2643=o8"
@@ -448,10 +468,11 @@ if [0]==[%x2652INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildx265="Build x265: "
+    set buildx265=2
 ) else set buildx265=%x2652INI%
 
-set "x2652=y"
+if "%buildx265%"=="" GOTO x265
+if %buildx265%==1 set "x2652=y"
 if %buildx265%==2 set "x2652=n"
 if %buildx265%==3 set "x2652=o10"
 if %buildx265%==4 set "x2652=o8"
@@ -472,10 +493,11 @@ if [0]==[%other265INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildother265="Build kvazaar: "
+    set buildother265=1
 ) else set buildother265=%other265INI%
 
-set "other265=y"
+if "%buildother265%"=="" GOTO other265
+if %buildother265%==1 set "other265=y"
 if %buildother265%==2 set "other265=n"
 if %buildother265% GTR 2 GOTO other265
 if %deleteINI%==1 echo.other265=^%buildother265%>>%ini%
@@ -491,10 +513,12 @@ if [0]==[%svthevcINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildsvthevc="Build SVT-HEVC: "
+    set buildsvthevc=1
 ) else set buildsvthevc=%svthevcINI%
 
-set "svthevc=n"
+if "%buildsvthevc%"=="" GOTO svthevc
+if %buildsvthevc%==1 set "svthevc=y"
+if %buildsvthevc%==2 set "svthevc=n"
 if %buildsvthevc% GTR 2 GOTO svthevc
 if %deleteINI%==1 echo.svthevc=^%buildsvthevc%>>%ini%
 
@@ -511,10 +535,12 @@ if [0]==[%xvcINI%] (
     echo. potential stability
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildxvc="Build xvc: "
+    set buildxvc=2
 ) else set buildxvc=%xvcINI%
 
-set "xvc=n"
+if "%buildxvc%"=="" GOTO xvc
+if %buildxvc%==1 set "xvc=y"
+if %buildxvc%==2 set "xvc=n"
 if %buildxvc% GTR 2 GOTO xvc
 if %deleteINI%==1 echo.xvc=^%buildxvc%>>%ini%
 
@@ -529,10 +555,11 @@ if [0]==[%vvcINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildvvc="Build vvc: "
+    set buildvvc=2
 ) else set buildvvc=%vvcINI%
 
-set "vvc=y"
+if "%buildvvc%"=="" GOTO vvc
+if %buildvvc%==1 set "vvc=y"
 if %buildvvc%==2 set "vvc=n"
 if %buildvvc% GTR 2 GOTO vvc
 if %deleteINI%==1 echo.vvc=^%buildvvc%>>%ini%
@@ -548,10 +575,12 @@ if [0]==[%uvg266INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P builduvg266="Build uvg266: "
+    set builduvg266=2
 ) else set builduvg266=%uvg266INI%
 
-set "uvg266=n"
+if "%builduvg266%"=="" GOTO uvg266
+if %builduvg266%==1 set "uvg266=y"
+if %builduvg266%==2 set "uvg266=n"
 if %builduvg266% GTR 2 GOTO uvg266
 if %deleteINI%==1 echo.uvg266=^%builduvg266%>>%ini%
 
@@ -566,10 +595,11 @@ if [0]==[%vvencINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildvvenc="Build vvenc: "
+    set buildvvenc=1
 ) else set buildvvenc=%vvencINI%
 
-set "vvenc=y"
+if "%buildvvenc%"=="" GOTO vvenc
+if %buildvvenc%==1 set "vvenc=y"
 if %buildvvenc%==2 set "vvenc=n"
 if %buildvvenc% GTR 2 GOTO vvenc
 if %deleteINI%==1 echo.vvenc=^%buildvvenc%>>%ini%
@@ -585,10 +615,11 @@ if [0]==[%vvdecINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildvvdec="Build vvdec: "
+    set buildvvdec=1
 ) else set buildvvdec=%vvdecINI%
 
-set "vvdec=y"
+if "%buildvvdec%"=="" GOTO vvdec
+if %buildvvdec%==1 set "vvdec=y"
 if %buildvvdec%==2 set "vvdec=n"
 if %buildvvdec% GTR 2 GOTO vvdec
 if %deleteINI%==1 echo.vvdec=^%buildvvdec%>>%ini%
@@ -607,10 +638,12 @@ if [0]==[%svtav1INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildsvtav1="Build SVT-AV1: "
+    set buildsvtav1=1
 ) else set buildsvtav1=%svtav1INI%
 
-set "svtav1=n"
+if "%buildsvtav1%"=="" GOTO svtav1
+if %buildsvtav1%==1 set "svtav1=y"
+if %buildsvtav1%==2 set "svtav1=n"
 if %buildsvtav1% GTR 2 GOTO svtav1
 if %deleteINI%==1 echo.svtav1=^%buildsvtav1%>>%ini%
 
@@ -628,10 +661,12 @@ if [0]==[%svtvp9INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildsvtvp9="Build SVT-VP9: "
+    set buildsvtvp9=1
 ) else set buildsvtvp9=%svtvp9INI%
 
-set "svtvp9=n"
+if "%buildsvtvp9%"=="" GOTO svtvp9
+if %buildsvtvp9%==1 set "svtvp9=y"
+if %buildsvtvp9%==2 set "svtvp9=n"
 if %buildsvtvp9% GTR 2 GOTO svtvp9
 if %deleteINI%==1 echo.svtvp9=^%buildsvtvp9%>>%ini%
 
@@ -646,10 +681,11 @@ if [0]==[%flacINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildflac="Build flac: "
+    set buildflac=1
 ) else set buildflac=%flacINI%
 
-set "flac=y"
+if "%buildflac%"=="" GOTO flac
+if %buildflac%==1 set "flac=y"
 if %buildflac%==2 set "flac=n"
 if %buildflac% GTR 2 GOTO flac
 if %deleteINI%==1 echo.flac=^%buildflac%>>%ini%
@@ -665,10 +701,11 @@ if [0]==[%fdkaacINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildfdkaac="Build fdkaac: "
+    set buildfdkaac=1
 ) else set buildfdkaac=%fdkaacINI%
 
-set "fdkaac=y"
+if "%buildfdkaac%"=="" GOTO fdkaac
+if %buildfdkaac%==1 set "fdkaac=y"
 if %buildfdkaac%==2 set "fdkaac=n"
 if %buildfdkaac% GTR 2 GOTO fdkaac
 if %deleteINI%==1 echo.fdkaac=^%buildfdkaac%>>%ini%
@@ -684,10 +721,12 @@ if [0]==[%faacINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildfaac="Build faac: "
+    set buildfaac=2
 ) else set buildfaac=%faacINI%
 
-set "faac=n"
+if "%buildfaac%"=="" GOTO faac
+if %buildfaac%==1 set "faac=y"
+if %buildfaac%==2 set "faac=n"
 if %buildfaac% GTR 2 GOTO faac
 if %deleteINI%==1 echo.faac=^%buildfaac%>>%ini%
 
@@ -704,10 +743,11 @@ if [0]==[%exhaleINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildexhale="Build exhale: "
+    set buildexhale=1
 ) else set buildexhale=%exhaleINI%
 
-set "exhale=y"
+if "%buildexhale%"=="" GOTO exhale
+if %buildexhale%==1 set "exhale=y"
 if %buildexhale%==2 set "exhale=n"
 if %buildexhale% GTR 2 GOTO exhale
 if %deleteINI%==1 echo.exhale=^%buildexhale%>>%ini%
@@ -723,10 +763,11 @@ if [0]==[%mediainfoINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildmediainfo="Build mediainfo: "
+    set buildmediainfo=1
 ) else set buildmediainfo=%mediainfoINI%
 
-set "mediainfo=y"
+if "%buildmediainfo%"=="" GOTO mediainfo
+if %buildmediainfo%==1 set "mediainfo=y"
 if %buildmediainfo%==2 set "mediainfo=n"
 if %buildmediainfo% GTR 2 GOTO mediainfo
 if %deleteINI%==1 echo.mediainfo=^%buildmediainfo%>>%ini%
@@ -742,10 +783,11 @@ if [0]==[%soxBINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildsox="Build sox: "
+    set buildsox=1
 ) else set buildsox=%soxBINI%
 
-set "sox=y"
+if "%buildsox%"=="" GOTO sox
+if %buildsox%==1 set "sox=y"
 if %buildsox%==2 set "sox=n"
 if %buildsox% GTR 2 GOTO sox
 if %deleteINI%==1 echo.soxB=^%buildsox%>>%ini%
@@ -772,10 +814,11 @@ if [0]==[%ffmpegB2INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmpeg="Build FFmpeg: "
+    set buildffmpeg=1
 ) else set buildffmpeg=%ffmpegB2INI%
 
-set "ffmpeg=static"
+if "%buildffmpeg%"=="" GOTO ffmpeg
+if %buildffmpeg%==1 set "ffmpeg=static"
 if %buildffmpeg%==2 set "ffmpeg=no"
 if %buildffmpeg%==3 set "ffmpeg=shared"
 if %buildffmpeg%==4 set "ffmpeg=both"
@@ -805,7 +848,7 @@ if [0]==[%ffmpegPathINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-) else set ffmpegPath=https://git.ffmpeg.org/ffmpeg.git
+) else set ffmpegPath=%ffmpegPathINI%
 
 if %deleteINI%==1 echo.ffmpegPath=%ffmpegPath%>>%ini%
 
@@ -822,7 +865,7 @@ endlocal & set "ffmpegPath=%ffmpegPath%"
 if not [%defaultFFmpegPath%]==[%ffmpegPath%] (
     echo -------------------------------------------------------------------------------
     echo.
-    echo. Using ffmpeg path: https://git.ffmpeg.org/ffmpeg.git
+    echo. Using ffmpeg path: %ffmpegPath%
     echo.
     echo -------------------------------------------------------------------------------
 )
@@ -842,10 +885,13 @@ if [0]==[%ffmpegUpdateINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set buildffmpegUp=1
+    set buildffmpegUp=2
 ) else set buildffmpegUp=%ffmpegUpdateINI%
 
-set "ffmpegUpdate=onlyFFmpeg"
+if "%buildffmpegUp%"=="" GOTO ffmpegUp
+if %buildffmpegUp%==1 set "ffmpegUpdate=y"
+if %buildffmpegUp%==2 set "ffmpegUpdate=n"
+if %buildffmpegUp%==3 set "ffmpegUpdate=onlyFFmpeg"
 if %buildffmpegUp% GTR 3 GOTO ffmpegUp
 if %deleteINI%==1 echo.ffmpegUpdate=^%buildffmpegUp%>>%ini%
 
@@ -869,7 +915,11 @@ if [0]==[%ffmpegChoiceINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set buildffmpegChoice=3
+    set "buildffmpegChoice=3"
+    set "ffmpegChoice=z"
+
+if %deleteINI%==1 echo.ffmpegChoice=^%buildffmpegChoice%>>%ini%
+set /P buildffmpegChoice="Choose ffmpeg and mpv optional libs: "
 ) else set buildffmpegChoice=%ffmpegChoiceINI%
 
 if "%buildffmpegChoice%"=="" GOTO ffmpegChoice
@@ -910,7 +960,7 @@ if %buildffmpegChoice%==1 (
             echo.# Built-in options, use --disable- to disable them
             call :writeOption %mpv_options_builtin%
             echo.
-            echo.# Common options or overridden defaults
+            echo.# Common options or overriden defaults
             call :writeOption %mpv_options_basic%
             echo.
             echo.# Full
@@ -925,7 +975,9 @@ if %buildffmpegChoice%==1 (
         pause
         )
     )
-set "ffmpegChoice=f"
+if %buildffmpegChoice%==2 set "ffmpegChoice=n"
+if %buildffmpegChoice%==3 set "ffmpegChoice=z"
+if %buildffmpegChoice%==4 set "ffmpegChoice=f"
 if %buildffmpegChoice% GTR 4 GOTO ffmpegChoice
 if %deleteINI%==1 echo.ffmpegChoice=^%buildffmpegChoice%>>%ini%
 
@@ -940,10 +992,12 @@ if [0]==[%mp4boxINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildMp4box="Build mp4box: "
+    set buildMp4box=2
 ) else set buildMp4box=%mp4boxINI%
 
-set "mp4box=n"
+if "%buildMp4box%"=="" GOTO mp4boxStatic
+if %buildMp4box%==1 set "mp4box=y"
+if %buildMp4box%==2 set "mp4box=n"
 if %buildMp4box% GTR 2 GOTO mp4boxStatic
 if %deleteINI%==1 echo.mp4box=^%buildMp4box%>>%ini%
 
@@ -958,10 +1012,11 @@ if [0]==[%rtmpdumpINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildrtmpdump="Build rtmpdump: "
+    set buildrtmpdump=1
 ) else set buildrtmpdump=%rtmpdumpINI%
 
-set "rtmpdump=y"
+if "%buildrtmpdump%"=="" GOTO rtmpdump
+if %buildrtmpdump%==1 set "rtmpdump=y"
 if %buildrtmpdump%==2 set "rtmpdump=n"
 if %buildrtmpdump% GTR 2 GOTO rtmpdump
 if %deleteINI%==1 echo.rtmpdump=^%buildrtmpdump%>>%ini%
@@ -983,10 +1038,12 @@ if [0]==[%mplayer2INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildmplayer="Build mplayer: "
+    set buildmplayer=2
 ) else set buildmplayer=%mplayer2INI%
 
-set "mplayer=n"
+if "%buildmplayer%"=="" GOTO mplayer
+if %buildmplayer%==1 set "mplayer=y"
+if %buildmplayer%==2 set "mplayer=n"
 if %buildmplayer% GTR 2 GOTO mplayer
 if %deleteINI%==1 echo.mplayer2=^%buildmplayer%>>%ini%
 
@@ -1004,10 +1061,12 @@ if [0]==[%mpvINI%] (
     echo. dependency that is only required if you try to use the corresponding filter.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildmpv="Build mpv: "
+    set buildmpv=2
 ) else set buildmpv=%mpvINI%
 
-set "mpv=n"
+if "%buildmpv%"=="" GOTO mpv
+if %buildmpv%==1 set "mpv=y"
+if %buildmpv%==2 set "mpv=n"
 if %buildmpv% GTR 2 GOTO mpv
 if %deleteINI%==1 echo.mpv=^%buildmpv%>>%ini%
 
@@ -1027,10 +1086,12 @@ if [0]==[%vlcINI%] (
     echo. 
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildvlc="Build vlc: "
+    set buildvlc=2
 ) else set buildvlc=%vlcINI%
 
-set "vlc=n"
+if "%buildvlc%"=="" GOTO vlc
+if %buildvlc%==1 set "vlc=y"
+if %buildvlc%==2 set "vlc=n"
 if %buildvlc% GTR 2 GOTO vlc
 if %deleteINI%==1 echo.vlc=^%buildvlc%>>%ini%
 
@@ -1045,10 +1106,12 @@ if [0]==[%bmxINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildbmx="Build bmx: "
+    set buildbmx=2
 ) else set buildbmx=%bmxINI%
 
-set "bmx=n"
+if "%buildbmx%"=="" GOTO bmx
+if %buildbmx%==1 set "bmx=y"
+if %buildbmx%==2 set "bmx=n"
 if %buildbmx% GTR 2 GOTO bmx
 if %deleteINI%==1 echo.bmx=^%buildbmx%>>%ini%
 
@@ -1071,10 +1134,14 @@ if [0]==[%curlINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildcurl="Build curl: "
+    set buildcurl=4
 ) else set buildcurl=%curlINI%
 
-set "curl=gnutls"
+if "%buildcurl%"=="" GOTO curl
+if %buildcurl%==1 set "curl=y"
+if %buildcurl%==2 set "curl=n"
+if %buildcurl%==3 set "curl=schannel"
+if %buildcurl%==4 set "curl=gnutls"
 if %buildcurl%==5 set "curl=openssl"
 if %buildcurl%==6 set "curl=libressl"
 if %buildcurl%==7 set "curl=mbedtls"
@@ -1099,10 +1166,12 @@ if [0]==[%ffmbcINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildffmbc="Build ffmbc: "
+    set buildffmbc=2
 ) else set buildffmbc=%ffmbcINI%
 
-set "ffmbc=n"
+if "%buildffmbc%"=="" GOTO ffmbc
+if %buildffmbc%==1 set "ffmbc=y"
+if %buildffmbc%==2 set "ffmbc=n"
 if %buildffmbc% GTR 2 GOTO ffmbc
 if %deleteINI%==1 echo.ffmbc=^%buildffmbc%>>%ini%
 
@@ -1117,10 +1186,12 @@ if [0]==[%cyanrip2INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildcyanrip="Build cyanrip: "
+    set buildcyanrip=2
 ) else set buildcyanrip=%cyanrip2INI%
 
-set "cyanrip=n"
+if "%buildcyanrip%"=="" GOTO cyanrip
+if %buildcyanrip%==1 set "cyanrip=y"
+if %buildcyanrip%==2 set "cyanrip=n"
 if %buildcyanrip% GTR 2 GOTO cyanrip
 if %deleteINI%==1 echo.cyanrip2=^%buildcyanrip%>>%ini%
 
@@ -1135,10 +1206,11 @@ if [0]==[%ripgrepINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildripgrep="Build ripgrep: "
+    set buildripgrep=1
 ) else set buildripgrep=%ripgrepINI%
 
-set "ripgrep=y"
+if "%buildripgrep%"=="" GOTO ripgrep
+if %buildripgrep%==1 set "ripgrep=y"
 if %buildripgrep%==2 set "ripgrep=n"
 if %buildripgrep% GTR 2 GOTO ripgrep
 if %deleteINI%==1 echo.ripgrep=^%buildripgrep%>>%ini%
@@ -1154,10 +1226,11 @@ if [0]==[%jqINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildjq="Build jq: "
+    set buildjq=1
 ) else set buildjq=%jqINI%
 
-set "jq=y"
+if "%buildjq%"=="" GOTO jq
+if %buildjq%==1 set "jq=y"
 if %buildjq%==2 set "jq=n"
 if %buildjq% GTR 2 GOTO jq
 if %deleteINI%==1 echo.jq=^%buildjq%>>%ini%
@@ -1173,10 +1246,11 @@ if [0]==[%joINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildjo="Build jo: "
+    set buildjo=1
 ) else set buildjo=%joINI%
 
-set "jo=y"
+if "%buildjo%"=="" GOTO jo
+if %buildjo%==1 set "jo=y"
 if %buildjo%==2 set "jo=n"
 if %buildjo% GTR 2 GOTO jo
 if %deleteINI%==1 echo.jo=^%buildjo%>>%ini%
@@ -1192,10 +1266,11 @@ if [0]==[%dssimINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P builddssim="Build dssim: "
+    set builddssim=1
 ) else set builddssim=%dssimINI%
 
-set "dssim=y"
+if "%builddssim%"=="" GOTO dssim
+if %builddssim%==1 set "dssim=y"
 if %builddssim%==2 set "dssim=n"
 if %builddssim% GTR 2 GOTO dssim
 if %deleteINI%==1 echo.dssim=^%builddssim%>>%ini%
@@ -1213,10 +1288,12 @@ if [0]==[%avs2INI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildavs2="Build avs2: "
+    set buildavs2=1
 ) else set buildavs2=%avs2INI%
 
-set "avs2=n"
+if "%buildavs2%"=="" GOTO avs2
+if %buildavs2%==1 set "avs2=y"
+if %buildavs2%==2 set "avs2=n"
 if %buildavs2% GTR 2 GOTO avs2
 if %deleteINI%==1 echo.avs2=^%buildavs2%>>%ini%
 
@@ -1231,10 +1308,12 @@ if [0]==[%dovitoolINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P builddovitool="Build dovi_tool: "
+    set builddovitool=2
 ) else set builddovitool=%dovitoolINI%
 
-set "dovitool=n"
+if "%builddovitool%"=="" GOTO dovitool
+if %builddovitool%==1 set "dovitool=y"
+if %builddovitool%==2 set "dovitool=n"
 if %builddovitool% GTR 2 GOTO dovitool
 if %deleteINI%==1 echo.dovitool=^%builddovitool%>>%ini%
 
@@ -1249,10 +1328,12 @@ if [0]==[%hdr10plustoolINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildhdr10plustool="Build hdr10plus_tool: "
+    set buildhdr10plustool=2
 ) else set buildhdr10plustool=%hdr10plustoolINI%
 
-set "hdr10plustool=n"
+if "%buildhdr10plustool%"=="" GOTO hdr10plustool
+if %buildhdr10plustool%==1 set "hdr10plustool=y"
+if %buildhdr10plustool%==2 set "hdr10plustool=n"
 if %buildhdr10plustool% GTR 2 GOTO hdr10plustool
 if %deleteINI%==1 echo.hdr10plustool=^%buildhdr10plustool%>>%ini%
 
@@ -1269,10 +1350,12 @@ if [0]==[%CCINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildCC="Build using clang: "
+    set buildCC=2
 ) else set buildCC=%CCINI%
 
-set "CC=gcc"
+if "%buildCC%"=="" GOTO CC
+if %buildCC%==1 set "CC=clang"
+if %buildCC%==2 set "CC=gcc"
 if %buildCC% GTR 2 GOTO CC
 if %deleteINI%==1 echo.CC=^%buildCC%>>%ini%
 
@@ -1294,7 +1377,7 @@ if [0]==[%coresINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P cpuCores="Core/Thread Count: "
+    set cpuCores=8
 ) else set cpuCores=%coresINI%
 for /l %%a in (1,1,%cpuCores%) do set cpuCount=%%a
 
@@ -1314,10 +1397,11 @@ if [0]==[%deleteSourceINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P deleteS="Delete source: "
+    set deleteS=1
 ) else set deleteS=%deleteSourceINI%
 
-set "deleteSource=y"
+if "%deleteS%"=="" GOTO delete
+if %deleteS%==1 set "deleteSource=y"
 if %deleteS%==2 set "deleteSource=n"
 if %deleteS% GTR 2 GOTO delete
 if %deleteINI%==1 echo.deleteSource=^%deleteS%>>%ini%
@@ -1335,10 +1419,11 @@ if [0]==[%stripINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P stripF="Strip files: "
+    set stripF=1
 ) else set stripF=%stripINI%
 
-set "stripFile=y"
+if "%stripF%"=="" GOTO stripEXE
+if %stripF%==1 set "stripFile=y"
 if %stripF%==2 set "stripFile=n"
 if %stripF% GTR 2 GOTO stripEXE
 if %deleteINI%==1 echo.strip=^%stripF%>>%ini%
@@ -1360,10 +1445,12 @@ if [0]==[%packINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P packF="Pack files: "
+    set packF=2
 ) else set packF=%packINI%
 
-set "packFile=n"
+if "%packF%"=="" GOTO packEXE
+if %packF%==1 set "packFile=y"
+if %packF%==2 set "packFile=n"
 if %packF% GTR 2 GOTO packEXE
 if %deleteINI%==1 echo.pack=^%packF%>>%ini%
 
@@ -1381,10 +1468,11 @@ if [0]==[%loggingINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P loggingF="Write logs: "
+    set loggingF=1
 ) else set loggingF=%loggingINI%
 
-set "logging=y"
+if "%loggingF%"=="" GOTO logging
+if %loggingF%==1 set "logging=y"
 if %loggingF%==2 set "logging=n"
 if %loggingF% GTR 2 GOTO logging
 if %deleteINI%==1 echo.logging=^%loggingF%>>%ini%
@@ -1404,7 +1492,7 @@ if %deleteINI%==1 echo.logging=^%loggingF%>>%ini%
 @REM     echo.
 @REM     echo -------------------------------------------------------------------------------
 @REM     echo -------------------------------------------------------------------------------
-@REM     set /P autouploadlogsF="Upload logs: "
+@REM     set autouploadlogsF=1
 @REM ) else set autouploadlogsF=%autouploadlogsINI%
 
 @REM if "%autouploadlogsF%"=="" GOTO autouploadlogs
@@ -1427,7 +1515,7 @@ if [0]==[%updateSuiteINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P updateSuiteF="Create update script: "
+    set updateSuiteF=2
 ) else set updateSuiteF=%updateSuiteINI%
 
 if "%updateSuiteF%"=="" GOTO updateSuite
@@ -1450,7 +1538,7 @@ if [0]==[%timeStampINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P timeStampF="Show Timestamps: "
+    set timeStampF=2
 ) else set timeStampF=%timeStampINI%
 
 if "%timeStampF%"=="" GOTO timestamp
@@ -1473,7 +1561,7 @@ if [0]==[%ccacheINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P buildwithccache="Use ccache: "
+    set buildwithccache=1
 ) else set buildwithccache=%ccacheINI%
 
 if "%buildwithccache%"=="" GOTO ccache
@@ -1499,7 +1587,7 @@ if [0]==[%noMinttyINI%] (
     echo.
     echo -------------------------------------------------------------------------------
     echo -------------------------------------------------------------------------------
-    set /P noMinttyF="SSH: "
+    set noMinttyF=2
 ) else set noMinttyF=%noMinttyINI%
 
 if "%noMinttyF%"=="" GOTO noMintty
