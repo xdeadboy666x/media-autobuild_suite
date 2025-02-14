@@ -1,0 +1,44 @@
+name: Media Autobuild Suite (Windows)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies (Chocolatey and Required Packages)
+        run: |
+          # Install Chocolatey if it's not available
+          Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+          
+          # Install required packages using Chocolatey
+          choco install python --version=3.9.6 -y
+          choco install git -y
+          choco install mingw -y
+          choco install 7zip -y  # Useful for extracting archives
+          choco install make -y   # Install make, which might be required
+
+      - name: Check PowerShell Version
+        run: |
+          $psVersion = $PSVersionTable.PSVersion
+          if ($psVersion.Major -lt 4) {
+            Write-Error "PowerShell 4 or higher is required."
+          }
+
+      - name: Clone media-autobuild_suite repository
+        run: git clone https://github.com/m-ab-s/media-autobuild_suite.git
+
+      - name: Run media-autobuild_suite.bat
+        run: |
+          # Execute the .bat script to start the build process
+          .\media-autobuild_suite\media-autobuild_suite.bat
