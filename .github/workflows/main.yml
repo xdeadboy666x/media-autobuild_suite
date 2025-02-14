@@ -19,5 +19,4 @@ jobs:
         
       - name: Run media-autobuild_suite.bat
         run: |
-          echo | .
-          .\media-autobuild_suite\media-autobuild_suite.bat
+          echo | .\media-autobuild_suite.bat
