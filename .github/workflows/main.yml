@@ -36,9 +36,6 @@ jobs:
             Write-Error "PowerShell 4 or higher is required."
           }
 
-      - name: Clone media-autobuild_suite repository
-        run: git clone https://github.com/m-ab-s/media-autobuild_suite.git
-
       - name: Run media-autobuild_suite.bat
         run: |
           # Execute the .bat script to start the build process
