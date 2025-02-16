@@ -46,6 +46,7 @@ jobs:
             ${{ runner.os }}-mab-
 
       - name: Run media-autobuild_suite.bat
+        shell: cmd
         run: |
           cd ../mab
           .\media-autobuild_suite.bat
