@@ -14,11 +14,29 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Set up workspace
+        run: |
+          mkdir mab
+          cd mab
+          git clone https://github.com/${{ github.repository }} .
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13' 
         
+      - name: Restore cache (build & msys64)
+        uses: actions/cache@v4
+        with:
+          path: |
+            mab/build
+            mab/msys64
+          key: ${{ runner.os }}-mab-${{ hashFiles('**/media-autobuild_suite.bat') }}
+          restore-keys: |
+            ${{ runner.os }}-mab-
+
       - name: Run media-autobuild_suite.bat
         run: |
+          cd mab
           .\media-autobuild_suite.bat
         env:
           GH_TOKEN: ${{ secrets.TOKEN_REPO }}
