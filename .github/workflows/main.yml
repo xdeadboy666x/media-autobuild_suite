@@ -14,12 +14,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Set up workspace
+      - uses: actions/checkout@v4
+        with:
+          path: mab  # Clones repo into D:\a\media-autobuild_suite\media-autobuild_suite\mab
+
+      - name: Move to D:\a
         run: |
-          mkdir mab
-          cd mab
-          git clone https://github.com/${{ github.repository }} .
-      
+          Move-Item -Path mab -Destination ../mab  # Moves "mab" to D:\a\mab
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13' 
@@ -28,15 +30,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            mab/build
-            mab/msys64
-          key: ${{ runner.os }}-mab-${{ hashFiles('**/media-autobuild_suite.bat') }}
+            ../mab/build
+            ../mab/msys64
+          key: ${{ runner.os }}-mab-${{ hashFiles('mab/media-autobuild_suite.bat') }}
           restore-keys: |
             ${{ runner.os }}-mab-
 
       - name: Run media-autobuild_suite.bat
         run: |
-          cd mab
+          cd ../mab
           .\media-autobuild_suite.bat
         env:
           GH_TOKEN: ${{ secrets.TOKEN_REPO }}
